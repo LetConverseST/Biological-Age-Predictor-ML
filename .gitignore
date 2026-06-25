@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+catboost_info/
+.vscode/
+.idea/
+.agents/
+.DS_Store

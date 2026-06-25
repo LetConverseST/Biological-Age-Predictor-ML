@@ -1,0 +1,12 @@
+pandas
+numpy
+scikit-learn
+xgboost
+lightgbm
+catboost
+streamlit
+lime
+joblib
+matplotlib
+fastapi
+uvicorn

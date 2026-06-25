@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aeterna | Biological Age Predictor</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-decorations">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">🧬</span>
+                <span class="logo-text">Aeterna</span>
+            </div>
+            <p class="tagline">Advanced Biological Age Assessment Model</p>
+        </header>
+
+        <main class="main-card">
+            <!-- Step Navigation / Progress -->
+            <div class="progress-container">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+                <div class="steps">
+                    <div class="step-item active" data-step="1">
+                        <div class="step-number">1</div>
+                        <span class="step-label">Vitals</span>
+                    </div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-number">2</div>
+                        <span class="step-label">Biometrics</span>
+                    </div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-number">3</div>
+                        <span class="step-label">Lifestyle</span>
+                    </div>
+                    <div class="step-item" data-step="4">
+                        <div class="step-number">4</div>
+                        <span class="step-label">History</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questionnaire Form -->
+            <form id="predictionForm">
+                <!-- STEP 1: Personal & Vitals -->
+                <div class="form-step active" id="step1">
+                    <div class="step-header">
+                        <h2>👤 Demographics & Basic Vitals</h2>
+                        <p>Let's start with your baseline information and vital statistics.</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div class="segmented-control">
+                                <label class="segment-btn">
+                                    <input type="radio" name="Gender" value="Male" checked>
+                                    <span>Male</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Gender" value="Female">
+                                    <span>Female</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="actualAge">Chronological Age</label>
+                            <input type="number" id="actualAge" min="1" max="120" value="45" required class="form-input">
+                            <small class="helper-text">Used only to compare with your biological age.</small>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="height">Height (cm)</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="heightSlider" min="100" max="230" value="170" class="form-slider">
+                                <input type="number" id="heightNum" min="100" max="230" value="170" class="form-input-short">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="weightSlider" min="20" max="250" value="70" class="form-slider">
+                                <input type="number" id="weightNum" min="20" max="250" value="70" class="form-input-short">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Blood Pressure (Systolic / Diastolic)</label>
+                            <div class="bp-inputs">
+                                <input type="number" id="bpSystolic" min="70" max="220" value="120" placeholder="Sys" required class="form-input">
+                                <span class="bp-separator">/</span>
+                                <input type="number" id="bpDiastolic" min="40" max="140" value="80" placeholder="Dia" required class="form-input">
+                            </div>
+                            <small class="helper-text">Normal is around 120/80 mmHg.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bmi">Body Mass Index (BMI)</label>
+                            <div class="bmi-badge-container">
+                                <input type="number" id="bmi" name="BMI" min="10" max="60" value="24.2" step="0.1" class="form-input" readonly>
+                                <span class="bmi-indicator normal" id="bmiIndicator">Normal Weight</span>
+                            </div>
+                            <small class="helper-text">Automatically calculated from height & weight.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Biometrics & Lab Markers -->
+                <div class="form-step" id="step2">
+                    <div class="step-header">
+                        <h2>🧪 Biometrics & Lab Markers</h2>
+                        <p>Biochemical markers give deep insights into cellular and metabolic aging.</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="cholesterol">Cholesterol Level (mg/dL)</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="cholesterolSlider" min="100" max="400" value="200" class="form-slider">
+                                <input type="number" id="cholesterolNum" min="100" max="400" value="200" class="form-input-short">
+                            </div>
+                            <small class="helper-text">Ideal: under 200 mg/dL.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="glucose">Blood Glucose Level (mg/dL)</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="glucoseSlider" min="50" max="250" value="95" class="form-slider">
+                                <input type="number" id="glucoseNum" min="50" max="250" value="95" class="form-input-short">
+                            </div>
+                            <small class="helper-text">Fasting ideal: under 100 mg/dL.</small>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="boneDensity">Bone Density (g/cm²)</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="boneSlider" min="-1.0" max="2.5" value="1.0" step="0.05" class="form-slider">
+                                <input type="number" id="boneNum" min="-1.0" max="2.5" value="1.0" step="0.01" class="form-input-short">
+                            </div>
+                            <small class="helper-text">Typically ranges from -1.0 (low) to 2.0+ (high).</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vision">Vision Sharpness</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="visionSlider" min="0.1" max="1.5" value="1.0" step="0.05" class="form-slider">
+                                <input type="number" id="visionNum" min="0.1" max="1.5" value="1.0" step="0.05" class="form-input-short">
+                            </div>
+                            <small class="helper-text">1.0 is standard normal vision.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group max-w-half">
+                        <label for="hearing">Hearing Ability (dB)</label>
+                        <div class="input-slider-group">
+                            <input type="range" id="hearingSlider" min="0" max="100" value="20" class="form-slider">
+                            <input type="number" id="hearingNum" min="0" max="100" value="20" class="form-input-short">
+                        </div>
+                        <small class="helper-text">Hearing threshold in decibels. Lower is better hearing.</small>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Lifestyle & Habits -->
+                <div class="form-step" id="step3">
+                    <div class="step-header">
+                        <h2>🏃 Lifestyle & Daily Habits</h2>
+                        <p>How you live directly impacts how you age. Be as accurate as possible.</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Physical Activity Level</label>
+                            <div class="segmented-control">
+                                <label class="segment-btn">
+                                    <input type="radio" name="Physical Activity Level" value="Low">
+                                    <span>Low</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Physical Activity Level" value="Moderate" checked>
+                                    <span>Moderate</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Physical Activity Level" value="High">
+                                    <span>High</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Smoking Status</label>
+                            <div class="segmented-control">
+                                <label class="segment-btn">
+                                    <input type="radio" name="Smoking Status" value="Never" checked>
+                                    <span>Never</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Smoking Status" value="Former">
+                                    <span>Former</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Smoking Status" value="Current">
+                                    <span>Current</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Alcohol Consumption</label>
+                            <div class="segmented-control">
+                                <label class="segment-btn">
+                                    <input type="radio" name="Alcohol Consumption" value="None" checked>
+                                    <span>None</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Alcohol Consumption" value="Occasional">
+                                    <span>Occasional</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Alcohol Consumption" value="Frequent">
+                                    <span>Frequent</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Dietary Style</label>
+                            <div class="segmented-control select-grid">
+                                <label class="segment-btn">
+                                    <input type="radio" name="Diet" value="Balanced" checked>
+                                    <span>Balanced</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Diet" value="Low-carb">
+                                    <span>Low-carb</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Diet" value="Vegetarian">
+                                    <span>Vegetarian</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Diet" value="High-fat">
+                                    <span>High-fat</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Sleep Patterns</label>
+                            <div class="segmented-control">
+                                <label class="segment-btn">
+                                    <input type="radio" name="Sleep Patterns" value="Normal" checked>
+                                    <span>Normal</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Sleep Patterns" value="Insomnia">
+                                    <span>Insomnia</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Sleep Patterns" value="Excessive">
+                                    <span>Excessive</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stress">Stress Level (0-10)</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="stressSlider" min="0" max="10" value="4" class="form-slider">
+                                <input type="number" id="stressNum" min="0" max="10" value="4" class="form-input-short">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: History & Environment -->
+                <div class="form-step" id="step4">
+                    <div class="step-header">
+                        <h2>🏥 Medical History & Environment</h2>
+                        <p>Family history, chronic conditions, and environmental factors finalize your profile.</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="chronic">Chronic Diseases</label>
+                            <select id="chronic" name="Chronic Diseases" class="form-select">
+                                <option value="None">None</option>
+                                <option value="Hypertension">Hypertension</option>
+                                <option value="Diabetes">Diabetes</option>
+                                <option value="Heart Disease">Heart Disease</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="medication">Medication Use</label>
+                            <select id="medication" name="Medication Use" class="form-select">
+                                <option value="None">None / Never</option>
+                                <option value="Occasional">Occasional</option>
+                                <option value="Regular">Regular</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="family">Family History of</label>
+                            <select id="family" name="Family History" class="form-select">
+                                <option value="None">None</option>
+                                <option value="Hypertension">Hypertension</option>
+                                <option value="Diabetes">Diabetes</option>
+                                <option value="Heart Disease">Heart Disease</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cognitive">Cognitive Function (0-100)</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="cognitiveSlider" min="0" max="100" value="85" class="form-slider">
+                                <input type="number" id="cognitiveNum" min="0" max="100" value="85" class="form-input-short">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Mental Health Status</label>
+                            <div class="segmented-control">
+                                <label class="segment-btn">
+                                    <input type="radio" name="Mental Health Status" value="Poor">
+                                    <span>Poor</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Mental Health Status" value="Fair">
+                                    <span>Fair</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Mental Health Status" value="Good" checked>
+                                    <span>Good</span>
+                                </label>
+                                <label class="segment-btn">
+                                    <input type="radio" name="Mental Health Status" value="Excellent">
+                                    <span>Excellent</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pollution">Pollution Exposure (0-10)</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="pollutionSlider" min="0" max="10" value="3" class="form-slider">
+                                <input type="number" id="pollutionNum" min="0" max="10" value="3" class="form-input-short">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="sun">Sun Exposure (0-10)</label>
+                            <div class="input-slider-group">
+                                <input type="range" id="sunSlider" min="0" max="10" value="4" class="form-slider">
+                                <input type="number" id="sunNum" min="0" max="10" value="4" class="form-input-short">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="education">Education Level</label>
+                            <select id="education" name="Education Level" class="form-select">
+                                <option value="None">None</option>
+                                <option value="High School">High School</option>
+                                <option value="Undergraduate" selected>Undergraduate</option>
+                                <option value="Postgraduate">Postgraduate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group max-w-half">
+                        <label>Income Level</label>
+                        <div class="segmented-control">
+                            <label class="segment-btn">
+                                <input type="radio" name="Income Level" value="Low">
+                                    <span>Low</span>
+                            </label>
+                            <label class="segment-btn">
+                                <input type="radio" name="Income Level" value="Medium" checked>
+                                    <span>Medium</span>
+                            </label>
+                            <label class="segment-btn">
+                                <input type="radio" name="Income Level" value="High">
+                                    <span>High</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-outline" id="prevBtn" disabled>Back</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">Continue</button>
+                </div>
+            </form>
+
+            <!-- Loading Screen -->
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="spinner-container">
+                    <div class="pulse-ring"></div>
+                    <div class="spinner"></div>
+                    <div class="loading-icon">🧬</div>
+                </div>
+                <h3>Analyzing Bio-markers...</h3>
+                <p>Running multi-variable linear stacking regressions.</p>
+            </div>
+
+            <!-- Results Screen -->
+            <div class="results-container" id="resultsContainer">
+                <div class="results-header">
+                    <h2>🔍 Biological Age Analysis</h2>
+                    <p>Your genomic and physiological biomarker analysis is ready.</p>
+                </div>
+
+                <div class="results-grid">
+                    <!-- Left: Radial Gauge -->
+                    <div class="results-card card-gauge">
+                        <h3>Predicted Biological Age</h3>
+                        <div class="gauge-wrapper">
+                            <svg class="radial-gauge" viewBox="0 0 200 130">
+                                <defs>
+                                    <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#6366f1" />
+                                        <stop offset="50%" stop-color="#a855f7" />
+                                        <stop offset="100%" stop-color="#06b6d4" />
+                                    </linearGradient>
+                                </defs>
+                                <path class="gauge-track" d="M 20 110 A 80 80 0 0 1 180 110" fill="none" stroke-linecap="round"></path>
+                                <path class="gauge-fill" id="gaugeFill" d="M 20 110 A 80 80 0 0 1 180 110" fill="none" stroke-linecap="round"></path>
+                                <circle class="gauge-center" cx="100" cy="110" r="8"></circle>
+                                <line class="gauge-needle" id="gaugeNeedle" x1="100" y1="110" x2="100" y2="40"></line>
+                            </svg>
+                            <div class="gauge-text">
+                                <span class="gauge-value" id="predictedAgeVal">0.00</span>
+                                <span class="gauge-unit">Years</span>
+                            </div>
+                        </div>
+                        <div class="status-badge" id="riskBadge">Optimal</div>
+                    </div>
+
+                    <!-- Right: Comparison Dashboard -->
+                    <div class="results-card card-comparison">
+                        <h3>Age Comparison</h3>
+                        <div class="comparison-stats">
+                            <div class="comp-item">
+                                <span class="comp-label">Chronological Age</span>
+                                <span class="comp-val" id="chronoAgeVal">45</span>
+                            </div>
+                            <div class="comp-divider"></div>
+                            <div class="comp-item">
+                                <span class="comp-label">Biological Age</span>
+                                <span class="comp-val highlight" id="bioAgeVal">0.0</span>
+                            </div>
+                        </div>
+                        <div class="comparison-summary" id="comparisonSummary">
+                            Calculating...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations Section -->
+                <div class="recommendations-section">
+                    <h3>🩺 Actionable Health & Lifestyle Insights</h3>
+                    <div class="tips-grid" id="tipsGrid">
+                        <!-- Dynamically filled tips -->
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="results-footer">
+                    <button class="btn btn-outline" id="retestBtn">Recalculate Predictor</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
